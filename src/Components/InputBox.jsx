@@ -1,21 +1,44 @@
-import React from 'react'
+import React, { useId } from 'react'
 
-const InputBox = () => {
+const InputBox = ({
+    label,
+    amount,
+    convertedAmount,
+    onAmountChange,
+    onCurrencyChange,
+    currencyOptions = [],
+    selectedCurrency = "usd",
+    amountDisable = false,
+    currencyDisable = false,
+}) => {
+    const amountInputId = useId();
     return (
-        <div className='bg-gray-900'>
-            <div className='w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30'>
-                <div>
-                    <label htmlFor="">From</label>
-                    <input type="number" placeholder='Amount' />
-                </div>
-                <div>
-                    <p>Currency Type</p>
-                    {/* <select name="" id="">
-            ['usd','inr'].map((currency)=>(
-                <option value="">{currency}</option>
-            ))
-        </select> */}
-                </div>
+        <div className='bg-white p-3 rounded-lg text-sm flex justify-between items-center'>
+            <div className='flex flex-col gap-3'>
+                <label htmlFor={amountInputId}>
+                    {label}
+                </label>
+                <input
+                    type="number"
+                    placeholder='Amount'
+                    name={amountInputId} id={amountInputId}
+                    className='rounded-lg px-1 py-1 bg-gray-100 outline-none'
+                    disabled={amountDisable}
+                    value={amount}
+                    onChange={(e) => onAmountChange && onAmountChange(e.target.value)}
+                />
+            </div>
+            <div className='flex flex-col w-1/2 gap-3'>
+                <label htmlFor="" className='flex justify-end text-black/70'>Currency Type</label>
+                <select
+                    className='rounded-lg px-1 py-1 bg-gray-100 cursor-pointer outline-none'
+                    value={selectedCurrency}
+                    onChange={(e)=>onCurrencyChange && onCurrencyChange(e.target.value)}
+                >
+                    {currencyOptions.map(curr=>(
+                        <option key={curr} value={curr}>{curr}</option>
+                    ))}
+                </select>
             </div>
         </div>
 
