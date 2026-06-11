@@ -12,6 +12,7 @@ const InputBox = ({
     currencyDisable = false,
 }) => {
     const amountInputId = useId();
+
     return (
         <div className='bg-white p-3 rounded-lg text-sm flex justify-between items-center'>
             <div className='flex flex-col gap-3'>
